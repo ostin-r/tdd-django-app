@@ -191,3 +191,11 @@ Read port: 55246
 1659549626033	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /var/folders/9l/k1t8f36j5gn0q380grhz4v700000gn/T/rust_mozprofileUYivKF/search.json.mozlz4", (void 0)))
 DevTools listening on ws://localhost:55239/devtools/browser/db4b0d09-1b80-452d-9286-4dfb3da860c7
+1659550181142	Marionette	INFO	Stopped listening on port 55098
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1659550183248	Marionette	INFO	Stopped listening on port 55200
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1659550185507	Marionette	INFO	Stopped listening on port 55150
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+1659550187530	Marionette	INFO	Stopped listening on port 55246
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
