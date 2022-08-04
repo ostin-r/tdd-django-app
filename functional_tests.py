@@ -1,5 +1,10 @@
-from selenium import webdriver
+from re import S
+import time
 import unittest
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
 
 class NewVisitorTest(unittest.TestCase):
 
@@ -12,10 +17,23 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         self.browser.get('http://127.0.0.1:8000')
         self.assertIn('to-do', self.browser.title.lower())
-        self.fail('Finish the test!')
+        
+        header_text = self.browser.find_element(By.TAG_NAME,'h1').text
+        self.assertIn('to-do', header_text)
 
-browser = webdriver.Firefox()
-browser.get('http://127.0.0.1:8000')  # user hears of new website and tries it out
+        input_box = self.browser.find_element(By.ID, 'id_new_item')
+        input_placeholder = input_box.get_attribute('placeholder')
+        self.assertEqual(input_placeholder, 'Enter a to-do item')
+
+        input_box.send_keys('Buy soup')
+        input_box.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        table = self.browser.find_element(By.ID, 'id_list_table')
+        rows = table.find_elements(By.TAG_NAME, 'tr')  # note this is finding multiple elements in table
+        self.assertTrue(any(row.text == '1: Buy soup' for row in rows))
+        
+        self.fail('Finish the test!')
 
 if __name__ == '__main__':
     unittest.main()
