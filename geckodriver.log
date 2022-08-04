@@ -332,3 +332,5 @@ console.warn: SearchSettings: "get: No settings file exists, new profile?" (new 
 DevTools listening on ws://localhost:55810/devtools/browser/e0eea250-e5ab-43fa-afae-71e73dd20b45
 1659559335421	Marionette	INFO	Stopped listening on port 55831
 JavaScript error: resource://services-settings/RemoteSettingsWorker.jsm, line 145: Error: Shutdown, aborting read-only worker requests.
+1659559465689	Marionette	INFO	Stopped listening on port 55788
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
