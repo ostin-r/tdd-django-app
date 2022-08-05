@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from lists.views import home_page
 from lists.models import Item
 
+
 class HomePageTest(TestCase):
 
     def test_home_page_returns_correct_html(self):
@@ -15,8 +16,27 @@ class HomePageTest(TestCase):
     
     def test_can_save_a_post_request(self):
         response = self.client.post('/', data={'item_text': 'new list item'})
-        self.assertIn('new list item', response.content.decode())
-        self.assertTemplateUsed(response, 'home.html')
+
+        self.assertEqual(Item.objects.count(), 1)
+        new_item = Item.objects.first()
+        self.assertEqual(new_item.text, 'new list item')
+
+    
+    def test_redirects_after_post_request(self):
+        response = self.client.post('/', data={'item_text': 'new list item'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
+
+    
+    def test_displays_all_list_items(self):
+        Item.objects.create(text='item 1')
+        Item.objects.create(text='item 2')
+        
+        response = self.client.get('/')
+
+        self.assertIn('item 1', response.content.decode())
+        self.assertIn('item 2', response.content.decode())
+
 
 class ItemModelTest(TestCase):
 
@@ -36,3 +56,7 @@ class ItemModelTest(TestCase):
         second_saved_item = saved_items[1]
         self.assertEqual(first_saved_item.text, 'The first (ever) list item')
         self.assertEqual(second_saved_item.text, 'The second item')
+
+    def test_only_writes_items_when_necessary(self):
+        self.client.get('/')
+        self.assertEqual(Item.objects.count(), 0)
