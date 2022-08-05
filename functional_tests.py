@@ -15,11 +15,11 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.quit()
 
     def test_can_start_a_list_and_retrieve_it_later(self):
-        self.browser.get('http://127.0.0.1:8000')
-        self.assertIn('to-do', self.browser.title.lower())
+        self.browser.get('http://127.0.0.1:8000/')
+        self.assertIn('To-Do', self.browser.title)
         
         header_text = self.browser.find_element(By.TAG_NAME,'h1').text
-        self.assertIn('to-do', header_text)
+        self.assertIn('To-Do', header_text)
 
         input_box = self.browser.find_element(By.ID, 'id_new_item')
         input_placeholder = input_box.get_attribute('placeholder')
@@ -31,7 +31,7 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element(By.ID, 'id_list_table')
         rows = table.find_elements(By.TAG_NAME, 'tr')  # note this is finding multiple elements in table
-        self.assertTrue(any(row.text == '1: Buy soup' for row in rows))
+        self.assertIn('1: Buy soup', [row.text for row in rows])
         
         self.fail('Finish the test!')
 
